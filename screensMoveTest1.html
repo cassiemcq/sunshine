@@ -1,0 +1,135 @@
+<html>
+<head>
+<meta charset="UTF-8"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<style>
+body{
+	background-color: blue;
+	margin:0 auto;
+}
+#tree1{
+	position:absolute;
+	width:270px;
+	height:480px;
+	left:0;
+	bottom:0;
+}
+#jellyfish1{
+	position:absolute;
+	width:853px;
+	height:480px;
+	right:0;
+	bottom:0;
+}
+#fire1{
+	position:absolute;
+	width:853px;
+	height:480px;
+	right:0px;
+	top:0;
+	border:10px solid red;
+}
+#ficus1{
+	position:absolute;
+	width:640px;
+	height:390px;
+	left:0;
+	top:0;
+	border:10px solid yellow;
+
+}
+#playercontain{
+	position:absolute;
+	border:1px solid blue;
+}
+</style>
+<body>
+  <div id="fire1"></div>
+  <div id="ficus1"></div>
+    <script>
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		let vidlist = [
+			"0CV0hSCZLy8",
+			"rVVDq6p_Tv0",
+			"ZWxJchNg1xg"
+		]
+		//var vidlist_index = 1;
+        // create youtube player
+        var fire1;
+		var ficus1;
+        function onYouTubePlayerAPIReady() {
+            fire1 = new YT.Player('fire1', {
+              width: '640',//the w & h are not taken from here - they are taken from the divs
+              height: '390',
+              videoId:vidlist[0],
+              events: {
+                onReady: onPlayerReady,
+                onStateChange: onPlayerStateChange
+              }
+            });
+			 ficus1 = new YT.Player('ficus1', {
+              width: '640',//the w & h are not taken from here - they are taken from the divs
+              height: '390',
+              videoId:vidlist[0],
+              events: {
+                onReady: onPlayerReady2,
+                onStateChange: onPlayerStateChange2
+              }
+            });
+        }
+        // autoplay video
+        function onPlayerReady(event) {
+			//fire1 div
+			player_location_top = Math.floor(Math.random()*50);
+			player_location_left = Math.floor(Math.random()*50);
+			console.log("top: "+ player_location_top);
+			console.log("left: "+ player_location_left);
+			$("#fire1").css({"top":player_location_top + "%","left":player_location_left + "%"});
+            event.target.playVideo();
+        }
+		 function onPlayerReady2(event) {
+			//ficus div
+			player_location_top2 = Math.floor(Math.random()*50);
+			player_location_left2 = Math.floor(Math.random()*50);
+			console.log("top: "+ player_location_top2);
+			console.log("left: "+ player_location_left2);
+			$("#ficus1").css({"top":player_location_top2 + "%","left":player_location_left2 + "%"});
+            event.target.playVideo();
+        }
+        // when video ends
+        function onPlayerStateChange(event) {        
+            if(event.data === 0) {          
+                console.log('done');
+				fire1.loadVideoById(vidlist[Math.floor(Math.random()*vidlist.length)], 0);
+				//fire1 div
+				player_location_top = Math.floor(Math.random()*50);
+				player_location_left = Math.floor(Math.random()*50);
+				console.log("new top: " + player_location_top);
+				console.log("new left: " + player_location_left);
+				$("#fire1").css({"top":player_location_top + "%","left":player_location_left + "%"});
+            }
+        }
+		function onPlayerStateChange2(event) {        
+            if(event.data === 0) {          
+                console.log('done2');
+				ficus1.loadVideoById(vidlist[Math.floor(Math.random()*vidlist.length)], 0);
+				//ficus1 div
+				player_location_top2 = Math.floor(Math.random()*50);
+				player_location_left2 = Math.floor(Math.random()*50);
+				console.log("new top2: " + player_location_top2);
+				console.log("new left2: " + player_location_left2);
+				$("#ficus1").css({"top":player_location_top2 + "%","left":player_location_left2 + "%"});
+            }
+        }
+
+    </script>
+
+
+
+
+</body>
+</html>
